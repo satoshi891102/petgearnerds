@@ -147,6 +147,8 @@ function productBox(name, price, stars, desc) {
 const productSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150"><rect fill="#f0ece5" width="150" height="150" rx="10"/><text x="75" y="75" text-anchor="middle" dy=".3em" font-family="sans-serif" font-size="40" fill="#c4bdb3">📦</text></svg>`;
 fs.writeFileSync('public/images/placeholder-product.svg', productSvg);
 
+const extraArticles = require('./articles-extra.js');
+
 const reviews = [
   { slug: 'yeti-dog-bowl', img: 'linear-gradient(135deg,#f5e6d3,#e8d5c0)', badge: "Editor's Pick", score: '9.2', cat: 'Dog Bowls', title: 'YETI Boomer 8 Dog Bowl — Worth the Premium Price?', excerpt: 'We put this stainless steel bowl through 3 months of daily use. Here\'s what surprised us...', time: 5 },
   { slug: 'best-orthopedic-dog-beds-2026', img: 'linear-gradient(135deg,#d4e6f1,#c5d9ea)', badge: 'Comparison', score: '9.5', cat: 'Dog Beds', title: 'Best Orthopedic Dog Beds 2026 — 7 Tested Over 6 Months', excerpt: 'After 6 months of testing with senior dogs, one bed stood clearly above the rest...', time: 12 },
@@ -154,6 +156,8 @@ const reviews = [
   { slug: 'best-cat-litter-2026', img: 'linear-gradient(135deg,#d4f1e0,#c0e8cf)', badge: 'Comparison', score: '9.0', cat: 'Cat Litter', title: 'Best Cat Litter 2026 — 10 Brands Tested Head-to-Head', excerpt: 'Clumping, crystal, natural — we tested every type so your home doesn\'t smell like a litter box...', time: 15 },
   { slug: 'kong-classic-review', img: 'linear-gradient(135deg,#f5d6d6,#e8c5c5)', badge: 'Classic', score: '9.4', cat: 'Dog Toys', title: 'KONG Classic — The Greatest Dog Toy Ever Made?', excerpt: 'After 20 years on the market, is the KONG Classic still king? We tested it against 12 competitors...', time: 7 },
   { slug: 'best-dog-food-golden-retrievers', img: 'linear-gradient(135deg,#f5ecd3,#e8dfc0)', badge: 'Breed Guide', score: '9.1', cat: 'Dog Food', title: 'Best Dog Food for Golden Retrievers 2026', excerpt: 'Golden Retrievers need specific nutrition for their coats, joints, and energy levels. Here are the top picks...', time: 10 },
+  // Extra articles for long-tail SEO
+  ...Object.values(extraArticles).map(a => ({ slug: a.slug, img: a.img, badge: a.badge, score: a.score, cat: a.cat, title: a.title, excerpt: a.excerpt, time: a.time })),
 ];
 
 // HOME PAGE
@@ -201,12 +205,12 @@ fs.writeFileSync('public/index.html', homePage);
 
 // CATEGORY PAGES
 const catPages = [
-  { dir: 'dogs', name: 'Dogs', emoji: '🐕', desc: 'Expert reviews of dog food, beds, toys, grooming tools, and everything else your good boy or girl needs.', reviews: [0,1,4,5] },
-  { dir: 'cats', name: 'Cats', emoji: '🐈', desc: 'In-depth reviews of cat food, litter, fountains, scratchers, and gear for your feline overlord.', reviews: [2,3] },
+  { dir: 'dogs', name: 'Dogs', emoji: '🐕', desc: 'Expert reviews of dog food, beds, toys, grooming tools, and everything else your good boy or girl needs.', reviews: [0,1,4,5,6] },
+  { dir: 'cats', name: 'Cats', emoji: '🐈', desc: 'In-depth reviews of cat food, litter, fountains, scratchers, and gear for your feline overlord.', reviews: [2,3,7] },
   { dir: 'food', name: 'Pet Food', emoji: '🍖', desc: 'Comprehensive pet food reviews — kibble, wet food, raw diets, and specialty nutrition for dogs and cats.', reviews: [0,3,5] },
-  { dir: 'health', name: 'Health & Wellness', emoji: '💊', desc: 'Reviews of pet supplements, dental care, flea treatments, and wellness products backed by veterinary research.', reviews: [1] },
-  { dir: 'training', name: 'Training', emoji: '🎓', desc: 'Reviews of training tools, clickers, harnesses, and leashes. Plus training tips from certified professionals.', reviews: [4] },
-  { dir: 'deals', name: 'Deals & Sales', emoji: '🏷️', desc: 'The best pet product deals we\'ve found this week. Updated daily with Amazon sales, coupon codes, and clearance finds.', reviews: [0,1,2,3,4,5] },
+  { dir: 'health', name: 'Health & Wellness', emoji: '💊', desc: 'Reviews of pet supplements, dental care, flea treatments, and wellness products backed by veterinary research.', reviews: [1,8] },
+  { dir: 'training', name: 'Training', emoji: '🎓', desc: 'Reviews of training tools, clickers, harnesses, and leashes. Plus training tips from certified professionals.', reviews: [4,6] },
+  { dir: 'deals', name: 'Deals & Sales', emoji: '🏷️', desc: 'The best pet product deals we\'ve found this week. Updated daily with Amazon sales, coupon codes, and clearance finds.', reviews: [0,1,2,3,4,5,6,7,8] },
 ];
 
 catPages.forEach(cat => {
@@ -328,10 +332,11 @@ fs.writeFileSync('public/review/yeti-dog-bowl/index.html', articlePage);
 
 // Generate full article pages for remaining reviews
 const articles = require('./articles.js');
+const allArticles = { ...articles, ...extraArticles };
 
 reviews.slice(1).forEach(r => {
   fs.mkdirSync(`public/review/${r.slug}`, { recursive: true });
-  const articleData = articles[r.slug];
+  const articleData = allArticles[r.slug];
   let articleContent;
   if (articleData) {
     // Full article available
