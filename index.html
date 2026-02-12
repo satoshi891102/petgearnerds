@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PetGearNerds — Expert Pet Product Reviews You Can Trust</title>
+<meta name="description" content="In-depth, nerdy pet product reviews backed by research. Find the best gear for your furry friends.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap');
+
+  :root {
+    --navy: #1a2744;
+    --navy-light: #243354;
+    --orange: #e8773a;
+    --orange-light: #f09c60;
+    --cream: #faf7f2;
+    --text: #2d3748;
+    --text-light: #718096;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--cream);
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid #e8e0d6;
+    padding: 0.8rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+  }
+  .nav-logo img {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+  }
+  .nav-logo span {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--navy);
+  }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--orange); }
+  .nav-search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--cream);
+    border: 1px solid #e2dcd4;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+  }
+  .nav-search input {
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+    width: 180px;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #2a3f6b 100%);
+    color: var(--white);
+    padding: 5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -30%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(232,119,58,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3.2rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .hero h1 .accent { color: var(--orange); }
+  .hero p {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.8);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--orange);
+    color: var(--white);
+    padding: 0.9rem 2rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: background 0.2s;
+    box-shadow: 0 4px 15px rgba(232,119,58,0.3);
+  }
+  .hero-cta:hover { background: #d66a30; }
+
+  /* TRUST BAR */
+  .trust-bar {
+    background: var(--white);
+    border-bottom: 1px solid #e8e0d6;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+  }
+  .trust-item strong { color: var(--navy); }
+
+  /* CATEGORIES */
+  .categories {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .categories h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: var(--navy);
+  }
+  .categories .subtitle {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 2.5rem;
+  }
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.2rem;
+  }
+  .cat-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 1.8rem 1.2rem;
+    text-align: center;
+    border: 1px solid #e8e0d6;
+    transition: all 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+  .cat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    border-color: var(--orange);
+  }
+  .cat-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+  .cat-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .cat-card p { font-size: 0.8rem; color: var(--text-light); }
+
+  /* FEATURED REVIEWS */
+  .featured {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .featured h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--navy);
+  }
+  .review-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .review-card {
+    background: var(--white);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid #e8e0d6;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .review-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  }
+  .review-img {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  .review-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--orange);
+    color: var(--white);
+    padding: 0.25rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .review-score {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--navy);
+    color: var(--white);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .review-body { padding: 1.2rem; }
+  .review-body .cat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--orange);
+    font-weight: 600;
+  }
+  .review-body h3 {
+    font-size: 1.1rem;
+    margin: 0.4rem 0;
+    line-height: 1.4;
+  }
+  .review-body p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 0.8rem;
+  }
+  .review-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-light);
+  }
+  .review-meta .author { font-weight: 500; color: var(--text); }
+
+  /* NEWSLETTER */
+  .newsletter {
+    background: var(--navy);
+    color: var(--white);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .newsletter h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .newsletter p {
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 1.5rem;
+  }
+  .newsletter-form {
+    display: flex;
+    max-width: 440px;
+    margin: 0 auto;
+    gap: 0.5rem;
+  }
+  .newsletter-form input {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    border: none;
+    font-family: inherit;
+    font-size: 1rem;
+  }
+  .newsletter-form button {
+    background: var(--orange);
+    color: var(--white);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .newsletter-form button:hover { background: #d66a30; }
+
+  /* FOOTER */
+  footer {
+    background: #111827;
+    color: rgba(255,255,255,0.6);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .footer-links a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  .footer-links a:hover { color: var(--orange); }
+  .footer-disclaimer {
+    font-size: 0.8rem;
+    max-width: 600px;
+    margin: 1rem auto 0;
+    color: rgba(255,255,255,0.4);
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2.2rem; }
+    .nav-links { display: none; }
+    .nav-search { display: none; }
+    .review-grid { grid-template-columns: 1fr; }
+    .newsletter-form { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="images/logo.png" alt="PetGearNerds">
+    <span>PetGearNerds</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/dogs">Dogs</a></li>
+    <li><a href="/cats">Cats</a></li>
+    <li><a href="/food">Food</a></li>
+    <li><a href="/health">Health</a></li>
+    <li><a href="/training">Training</a></li>
+    <li><a href="/deals">Deals</a></li>
+  </ul>
+  <div class="nav-search">
+    <span>🔍</span>
+    <input type="text" placeholder="Search reviews...">
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Expert Pet Product Reviews<br>You Can <span class="accent">Actually Trust</span></h1>
+  <p>We test, compare, and obsess over pet products so you don't have to. Research-backed reviews for dog and cat parents who care.</p>
+  <a href="/reviews" class="hero-cta">Browse Reviews →</a>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-item">✅ <strong>200+</strong> Products Tested</div>
+  <div class="trust-item">⭐ <strong>50+</strong> In-Depth Reviews</div>
+  <div class="trust-item">🔬 <strong>Research-Backed</strong> Methodology</div>
+  <div class="trust-item">🐕 <strong>100%</strong> Independent</div>
+</div>
+
+<section class="categories">
+  <h2>Browse by Category</h2>
+  <p class="subtitle">Find the perfect gear for every aspect of pet parenting</p>
+  <div class="cat-grid">
+    <a class="cat-card" href="/dogs/food">
+      <div class="cat-icon">🦴</div>
+      <h3>Dog Food</h3>
+      <p>Kibble, wet food, raw diets</p>
+    </a>
+    <a class="cat-card" href="/cats/food">
+      <div class="cat-icon">🐟</div>
+      <h3>Cat Food</h3>
+      <p>Dry, wet, grain-free</p>
+    </a>
+    <a class="cat-card" href="/dogs/beds">
+      <div class="cat-icon">🛏️</div>
+      <h3>Beds & Crates</h3>
+      <p>Orthopedic, calming, travel</p>
+    </a>
+    <a class="cat-card" href="/toys">
+      <div class="cat-icon">🎾</div>
+      <h3>Toys & Puzzles</h3>
+      <p>Interactive, chew, enrichment</p>
+    </a>
+    <a class="cat-card" href="/health">
+      <div class="cat-icon">💊</div>
+      <h3>Health & Wellness</h3>
+      <p>Supplements, dental, flea</p>
+    </a>
+    <a class="cat-card" href="/grooming">
+      <div class="cat-icon">✂️</div>
+      <h3>Grooming</h3>
+      <p>Brushes, shampoo, clippers</p>
+    </a>
+  </div>
+</section>
+
+<section class="featured">
+  <h2>Latest Reviews</h2>
+  <div class="review-grid">
+    <a class="review-card" href="/review/yeti-dog-bowl">
+      <div class="review-img" style="background: linear-gradient(135deg, #f5e6d3, #e8d5c0);">
+        <span class="review-badge">Editor's Pick</span>
+        <span class="review-score">9.2</span>
+      </div>
+      <div class="review-body">
+        <span class="cat-label">Dog Bowls</span>
+        <h3>YETI Boomer 8 Dog Bowl — Worth the Premium Price?</h3>
+        <p>We put this stainless steel bowl through 3 months of daily use. Here's what surprised us about the build quality...</p>
+        <div class="review-meta">
+          <span class="author">PetGearNerds Team</span>
+          <span>5 min read</span>
+        </div>
+      </div>
+    </a>
+    <a class="review-card" href="/review/best-orthopedic-dog-beds-2026">
+      <div class="review-img" style="background: linear-gradient(135deg, #d4e6f1, #c5d9ea);">
+        <span class="review-badge">Comparison</span>
+        <span class="review-score">9.5</span>
+      </div>
+      <div class="review-body">
+        <span class="cat-label">Dog Beds</span>
+        <h3>Best Orthopedic Dog Beds 2026 — 7 Tested Over 6 Months</h3>
+        <p>After 6 months of testing with senior dogs, one bed stood clearly above the rest for joint support and durability...</p>
+        <div class="review-meta">
+          <span class="author">PetGearNerds Team</span>
+          <span>12 min read</span>
+        </div>
+      </div>
+    </a>
+    <a class="review-card" href="/review/catit-pixi-fountain">
+      <div class="review-img" style="background: linear-gradient(135deg, #e8d8f0, #d5c4e3);">
+        <span class="review-badge">Best Value</span>
+        <span class="review-score">8.8</span>
+      </div>
+      <div class="review-body">
+        <span class="cat-label">Cat Fountains</span>
+        <h3>Catit PIXI Smart Fountain Review — Smart, Quiet, Beautiful</h3>
+        <p>Our two cats tested this LED fountain for 8 weeks. Filtration, noise levels, and app integration — we measured everything...</p>
+        <div class="review-meta">
+          <span class="author">PetGearNerds Team</span>
+          <span>8 min read</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="newsletter">
+  <h2>Get the Best Picks, Weekly</h2>
+  <p>No spam. Just the top pet product finds, deals, and reviews delivered every Sunday.</p>
+  <form class="newsletter-form">
+    <input type="email" placeholder="your@email.com" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</section>
+
+<footer>
+  <div class="footer-links">
+    <a href="/about">About</a>
+    <a href="/methodology">Our Methodology</a>
+    <a href="/contact">Contact</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/affiliate-disclosure">Affiliate Disclosure</a>
+  </div>
+  <p class="footer-disclaimer">PetGearNerds is reader-supported. When you buy through links on our site, we may earn an affiliate commission at no extra cost to you. We only recommend products we've tested and genuinely believe in.</p>
+  <p style="margin-top: 1rem; font-size: 0.8rem;">&copy; 2026 PetGearNerds. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
