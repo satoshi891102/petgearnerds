@@ -161,6 +161,13 @@ const reviews = [
 ];
 
 // HOME PAGE
+const homeSchema = {
+  "@type": "WebSite",
+  "name": "PetGearNerds",
+  "url": "https://petgearnerds.vercel.app",
+  "description": "In-depth pet product reviews backed by research. Expert reviews of dog and cat products.",
+  "potentialAction": {"@type": "SearchAction", "target": "https://petgearnerds.vercel.app/?q={search_term_string}", "query-input": "required name=search_term_string"}
+};
 const homePage = page('Expert Pet Product Reviews', 'In-depth pet product reviews backed by research. Find the best gear for your furry friends.', `
 <section class="hero">
   <h1>Expert Pet Product Reviews<br>You Can <span class="accent">Actually Trust</span></h1>
@@ -200,7 +207,7 @@ const homePage = page('Expert Pet Product Reviews', 'In-depth pet product review
   </section>
   ${adLeaderboard}
 </div>
-`);
+`, '', homeSchema);
 fs.writeFileSync('public/index.html', homePage);
 
 // CATEGORY PAGES
@@ -235,6 +242,18 @@ catPages.forEach(cat => {
 `, cat.dir);
   fs.writeFileSync(`public/${cat.dir}/index.html`, html);
 });
+
+// Helper: generate Review schema for articles
+function reviewSchema(r) {
+  return {
+    "@type": "Review",
+    "itemReviewed": {"@type": "Product", "name": r.title.split('—')[0].trim()},
+    "reviewRating": {"@type": "Rating", "ratingValue": r.score, "bestRating": "10"},
+    "author": {"@type": "Organization", "name": "PetGearNerds"},
+    "publisher": {"@type": "Organization", "name": "PetGearNerds", "url": "https://petgearnerds.vercel.app"},
+    "datePublished": "2026-02-12"
+  };
+}
 
 // REVIEW ARTICLE PAGE (sample full article)
 const articlePage = page('YETI Boomer 8 Dog Bowl — Worth the Premium Price?', 'After 3 months of daily testing, we break down whether the YETI Boomer 8 justifies its premium price tag.', `
@@ -328,7 +347,10 @@ const articlePage = page('YETI Boomer 8 Dog Bowl — Worth the Premium Price?', 
 </div>
 `, 'dogs');
 fs.mkdirSync('public/review/yeti-dog-bowl', { recursive: true });
-fs.writeFileSync('public/review/yeti-dog-bowl/index.html', articlePage);
+// Inject schema into YETI article
+const yetiSchema = reviewSchema(reviews[0]);
+const yetiWithSchema = articlePage.replace('</head>', schemaOrg(null, yetiSchema) + '\n</head>');
+fs.writeFileSync('public/review/yeti-dog-bowl/index.html', yetiWithSchema);
 
 // Generate full article pages for remaining reviews
 const articles = require('./articles.js');
@@ -340,6 +362,7 @@ reviews.slice(1).forEach(r => {
   let articleContent;
   if (articleData) {
     // Full article available
+    const schema = reviewSchema(r);
     articleContent = page(articleData.title, r.excerpt, `
 <div class="container">
   <div class="breadcrumb">${articleData.breadcrumb}</div>
@@ -357,7 +380,7 @@ reviews.slice(1).forEach(r => {
     ${sidebar}
   </div>
 </div>
-    `);
+    `, '', schema);
   } else {
     // Fallback stub
     articleContent = page(r.title, r.excerpt, `
