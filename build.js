@@ -315,10 +315,36 @@ const articlePage = page('YETI Boomer 8 Dog Bowl — Worth the Premium Price?', 
 fs.mkdirSync('public/review/yeti-dog-bowl', { recursive: true });
 fs.writeFileSync('public/review/yeti-dog-bowl/index.html', articlePage);
 
-// Create stub pages for other reviews
+// Generate full article pages for remaining reviews
+const articles = require('./articles.js');
+
 reviews.slice(1).forEach(r => {
   fs.mkdirSync(`public/review/${r.slug}`, { recursive: true });
-  const stub = page(r.title, r.excerpt, `
+  const articleData = articles[r.slug];
+  let articleContent;
+  if (articleData) {
+    // Full article available
+    articleContent = page(articleData.title, r.excerpt, `
+<div class="container">
+  <div class="breadcrumb">${articleData.breadcrumb}</div>
+  ${adLeaderboard}
+  <div class="content-grid">
+    <div class="main-content">
+      <article class="article">
+        ${articleData.content(productBox, adInline, adLeaderboard)}
+      </article>
+      <h3 style="font-family:'DM Serif Display',serif;color:var(--navy);margin:2rem 0 1rem;">Related Reviews</h3>
+      <div class="review-grid">
+        ${reviews.filter(x => x.slug !== r.slug).slice(0,2).map(x => reviewCard(x.slug, x.img, x.badge, x.score, x.cat, x.title, x.excerpt, x.time)).join('\n')}
+      </div>
+    </div>
+    ${sidebar}
+  </div>
+</div>
+    `);
+  } else {
+    // Fallback stub
+    articleContent = page(r.title, r.excerpt, `
 <div class="container">
   <div class="breadcrumb"><a href="/">Home</a> › <a href="/dogs/">Reviews</a> › ${r.title}</div>
   ${adLeaderboard}
@@ -327,20 +353,16 @@ reviews.slice(1).forEach(r => {
       <article class="article">
         <h1>${r.title}</h1>
         <div class="article-meta">By <strong>PetGearNerds Team</strong> · February 2026 · ${r.time} min read</div>
-        <div style="background:${r.img};height:300px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:3rem;margin-bottom:1.5rem;">📝</div>
-        <div style="background:var(--cream);border-left:4px solid var(--orange);padding:1rem 1.5rem;border-radius:0 8px 8px 0;margin:1.5rem 0;">
-          <strong>Our Score: ${r.score}/10</strong>
-        </div>
         <p>${r.excerpt}</p>
-        <p><em>Full review coming soon. Subscribe to our newsletter to get notified when it's published.</em></p>
-        ${adInline}
+        <p><em>Full review coming soon.</em></p>
       </article>
     </div>
     ${sidebar}
   </div>
 </div>
-  `);
-  fs.writeFileSync(`public/review/${r.slug}/index.html`, stub);
+    `);
+  }
+  fs.writeFileSync(`public/review/${r.slug}/index.html`, articleContent);
 });
 
 // ABOUT PAGE
@@ -497,6 +519,36 @@ const affiliatePage = page('Affiliate Disclosure', 'How PetGearNerds earns money
 </div>
 `);
 fs.writeFileSync('public/affiliate-disclosure/index.html', affiliatePage);
+
+// SITEMAP.XML
+const domain = 'https://petgearnerds.vercel.app';
+const today = new Date().toISOString().split('T')[0];
+const sitemapUrls = [
+  { loc: '/', priority: '1.0', changefreq: 'weekly' },
+  ...catPages.map(c => ({ loc: `/${c.dir}/`, priority: '0.8', changefreq: 'weekly' })),
+  ...reviews.map(r => ({ loc: `/review/${r.slug}/`, priority: '0.9', changefreq: 'monthly' })),
+  { loc: '/about/', priority: '0.5', changefreq: 'monthly' },
+  { loc: '/methodology/', priority: '0.5', changefreq: 'monthly' },
+  { loc: '/contact/', priority: '0.4', changefreq: 'yearly' },
+  { loc: '/privacy/', priority: '0.3', changefreq: 'yearly' },
+  { loc: '/affiliate-disclosure/', priority: '0.3', changefreq: 'yearly' },
+];
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapUrls.map(u => `  <url>
+    <loc>${domain}${u.loc}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>${u.changefreq}</changefreq>
+    <priority>${u.priority}</priority>
+  </url>`).join('\n')}
+</urlset>`;
+fs.writeFileSync('public/sitemap.xml', sitemap);
+
+// ROBOTS.TXT
+fs.writeFileSync('public/robots.txt', `User-agent: *
+Allow: /
+Sitemap: ${domain}/sitemap.xml
+`);
 
 console.log('✅ Built all pages:');
 console.log('  - / (home)');
