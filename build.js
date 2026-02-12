@@ -85,7 +85,12 @@ const sidebar = `<aside class="sidebar">
   ${adRectangle}
 </aside>`;
 
-function page(title, desc, content, active='') {
+function schemaOrg(type, data) {
+  if (!data) return '';
+  return `<script type="application/ld+json">${JSON.stringify({"@context":"https://schema.org",...data})}</script>`;
+}
+
+function page(title, desc, content, active='', schema=null) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,7 +101,13 @@ function page(title, desc, content, active='') {
 <meta property="og:title" content="${title} — PetGearNerds">
 <meta property="og:description" content="${desc}">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="PetGearNerds">
+<meta property="og:image" content="https://petgearnerds.vercel.app/images/logo.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://petgearnerds.vercel.app/">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="stylesheet" href="/style.css">
+${schema ? schemaOrg(null, schema) : ''}
 </head>
 <body>
 ${nav(active)}
