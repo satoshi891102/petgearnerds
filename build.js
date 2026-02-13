@@ -118,9 +118,15 @@ ${footer}
 </html>`;
 }
 
+const { articleImages: petImages } = require('./images');
+
 function reviewCard(slug, img, badge, score, cat, title, excerpt, time) {
+  const realImg = petImages[slug];
+  const imgStyle = realImg
+    ? `background-image:url('${realImg}');background-size:cover;background-position:center;`
+    : `background:${img};display:flex;align-items:center;justify-content:center;font-size:3rem;`;
   return `<a class="review-card" href="/review/${slug}/">
-    <div class="review-img" style="background:${img}"><span class="review-badge">${badge}</span><span class="review-score">${score}</span></div>
+    <div class="review-img" style="${imgStyle}"><span class="review-badge">${badge}</span><span class="review-score">${score}</span></div>
     <div class="review-body">
       <span class="cat-label">${cat}</span>
       <h3>${title}</h3>
@@ -175,7 +181,7 @@ const homePage = page('Expert Pet Product Reviews', 'In-depth pet product review
   <h1>Expert Pet Product Reviews<br>You Can <span class="accent">Actually Trust</span></h1>
   <p>We test, compare, and obsess over pet products so you don't have to. Research-backed reviews for dog and cat parents who care.</p>
   <a href="/dogs/" class="hero-cta">Browse Reviews →</a>
-  <div class="hero-img"><img src="/images/hero.png" alt="Happy pets with premium gear"></div>
+  <div class="hero-img"><img src="https://images.unsplash.com/photo-1450778869180-e77d3c79e4ba?w=900&h=400&fit=crop" alt="Happy pets with premium gear" loading="lazy"></div>
 </section>
 <div class="trust-bar">
   <div class="trust-item">✅ <strong>200+</strong> Products Tested</div>
@@ -269,7 +275,7 @@ const articlePage = page('YETI Boomer 8 Dog Bowl — Worth the Premium Price?', 
         <div class="article-meta">
           By <strong>PetGearNerds Team</strong> · Updated February 10, 2026 · 5 min read
         </div>
-        <div style="background:linear-gradient(135deg,#f5e6d3,#e8d5c0);height:300px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:3rem;margin-bottom:1.5rem;">🥣</div>
+        <div style="height:300px;border-radius:10px;overflow:hidden;margin-bottom:1.5rem;"><img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=900&h=400&fit=crop" alt="Dog with YETI bowl" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
 
         <p><strong>The bottom line:</strong> The YETI Boomer 8 is the best stainless steel dog bowl we've ever tested. It's virtually indestructible, won't slide across the floor, and keeps water noticeably cooler. But at $50, it's 5x the price of a standard bowl. Is it worth it? For most pet parents, yes.</p>
 
