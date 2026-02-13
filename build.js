@@ -156,6 +156,7 @@ fs.writeFileSync('public/images/placeholder-product.svg', productSvg);
 const extraArticles = require('./articles-extra.js');
 const night2Articles = require('./articles-night2.js');
 const batch2Articles = require('./articles-batch2.js');
+const batch3Articles = require('./articles-batch3.js');
 
 const reviews = [
   { slug: 'yeti-dog-bowl', img: 'linear-gradient(135deg,#f5e6d3,#e8d5c0)', badge: "Editor's Pick", score: '9.2', cat: 'Dog Bowls', title: 'YETI Boomer 8 Dog Bowl — Worth the Premium Price?', excerpt: 'We put this stainless steel bowl through 3 months of daily use. Here\'s what surprised us...', time: 5 },
@@ -168,6 +169,7 @@ const reviews = [
   ...Object.values(extraArticles).map(a => ({ slug: a.slug, img: a.img, badge: a.badge, score: a.score, cat: a.cat, title: a.title, excerpt: a.excerpt, time: a.time })),
   ...Object.values(night2Articles).map(a => ({ slug: a.slug, img: a.img, badge: a.badge, score: a.score, cat: a.cat, title: a.title, excerpt: a.excerpt, time: a.time })),
   ...Object.values(batch2Articles).map(a => ({ slug: a.slug, img: a.img, badge: a.badge, score: a.score, cat: a.cat, title: a.title, excerpt: a.excerpt, time: a.time })),
+  ...Object.values(batch3Articles).map(a => ({ slug: a.slug, img: a.img, badge: a.badge, score: a.score, cat: a.cat, title: a.title, excerpt: a.excerpt, time: a.time })),
 ];
 
 // HOME PAGE
@@ -364,7 +366,7 @@ fs.writeFileSync('public/review/yeti-dog-bowl/index.html', yetiWithSchema);
 
 // Generate full article pages for remaining reviews
 const articles = require('./articles.js');
-const allArticles = { ...articles, ...extraArticles, ...night2Articles, ...batch2Articles };
+const allArticles = { ...articles, ...extraArticles, ...night2Articles, ...batch2Articles, ...batch3Articles };
 
 reviews.slice(1).forEach(r => {
   fs.mkdirSync(`public/review/${r.slug}`, { recursive: true });
