@@ -29,6 +29,14 @@ const articleImages = {
   'best-elevated-dog-bowl-2026': 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&h=500&fit=crop&q=65',
   'best-calming-dog-bed-2026': 'https://images.unsplash.com/photo-1601758174114-e711c0cbaa69?w=800&h=500&fit=crop&q=80',
   'best-pet-stain-remover-2026': 'https://images.unsplash.com/photo-1450778869180-e77d3c79e4ba?w=800&h=500&fit=crop&q=70',
+  'best-dog-raincoat-2026': 'https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=800&h=500&fit=crop',
+  'best-cat-food-sensitive-stomach-2026': 'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=800&h=500&fit=crop&q=85',
+  'best-dog-winter-boots-2026': 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&h=500&fit=crop&q=85',
+  'best-cat-water-fountain-2026': 'https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=800&h=500&fit=crop&q=85',
+  'best-dog-anxiety-vest-2026': 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&h=500&fit=crop&q=85',
+  'best-flea-tick-prevention-dogs-2026': 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&h=500&fit=crop&q=80',
+  'best-dog-car-seat-cover-2026': 'https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=800&h=500&fit=crop&q=80',
+  'best-cat-grooming-brush-2026': 'https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?w=800&h=500&fit=crop&q=85',
 };
 
 module.exports = { articleImages };

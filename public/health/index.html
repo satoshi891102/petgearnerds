@@ -17,6 +17,7 @@
 
 </head>
 <body>
+<div class="progress-bar" id="progressBar"></div>
 <nav>
   <a href="/" class="nav-logo"><img src="/images/logo.png" alt="PetGearNerds"><span>PetGearNerds</span></a>
   <ul class="nav-links">
@@ -28,7 +29,19 @@
     <li><a href="/deals/" >Deals</a></li>
   </ul>
   <div class="nav-search"><span>🔍</span><input type="text" placeholder="Search reviews..."></div>
+  <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('active')">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-btn" onclick="this.parentElement.classList.remove('active')">✕</button>
+  <a href="/dogs/" onclick="this.parentElement.classList.remove('active')">Dogs</a>
+  <a href="/cats/" onclick="this.parentElement.classList.remove('active')">Cats</a>
+  <a href="/food/" onclick="this.parentElement.classList.remove('active')">Food</a>
+  <a href="/health/" onclick="this.parentElement.classList.remove('active')">Health</a>
+  <a href="/training/" onclick="this.parentElement.classList.remove('active')">Training</a>
+  <a href="/deals/" onclick="this.parentElement.classList.remove('active')">Deals</a>
+</div>
 
 <div class="container">
   <div class="breadcrumb"><a href="/">Home</a> › Health & Wellness</div>
@@ -40,22 +53,49 @@
   <div class="content-grid">
     <div class="main-content">
       <div class="review-grid" style="grid-template-columns:1fr;">
-        <a class="review-card" href="/review/best-orthopedic-dog-beds-2026/">
-    <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=800&h=500&fit=crop');background-size:cover;background-position:center;"><span class="review-badge">Comparison</span><span class="review-score">9.5</span></div>
+        <a class="review-card" href="/review/best-pet-insurance-2026/">
+    <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1450778869180-e77d3c79e4ba?w=800&h=500&fit=crop');background-size:cover;background-position:center;"><span class="review-badge">Guide</span><span class="review-score">9.0</span></div>
     <div class="review-body">
-      <span class="cat-label">Dog Beds</span>
-      <h3>Best Orthopedic Dog Beds 2026 — 7 Tested Over 6 Months</h3>
-      <p>After 6 months of testing with senior dogs, one bed stood clearly above the rest...</p>
+      <span class="cat-label">Pet Health</span>
+      <h3>Best Pet Insurance 2026 — 8 Plans Compared (We Read the Fine Print)</h3>
+      <p>Pet insurance is confusing by design. We read the exclusions on 8 plans and found the 4 that pay out...</p>
+      <div class="review-meta"><span class="author">PetGearNerds Team</span><span>20 min read</span></div>
+    </div>
+  </a>
+<a class="review-card" href="/review/best-dog-dental-chews-2026/">
+    <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&h=500&fit=crop&q=80');background-size:cover;background-position:center;"><span class="review-badge">Health</span><span class="review-score">8.7</span></div>
+    <div class="review-body">
+      <span class="cat-label">Dog Health</span>
+      <h3>Best Dog Dental Chews 2026: VOHC-Approved Picks That Actually Work</h3>
+      <p>80% of dogs have dental disease by age 3. We tested only VOHC-approved dental chews — the ones with actual clinical evidence of reducing plaque and tartar.</p>
+      <div class="review-meta"><span class="author">PetGearNerds Team</span><span>14 min read</span></div>
+    </div>
+  </a>
+<a class="review-card" href="/review/best-pet-stain-remover-2026/">
+    <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1450778869180-e77d3c79e4ba?w=800&h=500&fit=crop&q=70');background-size:cover;background-position:center;"><span class="review-badge">Cleaning</span><span class="review-score">8.7</span></div>
+    <div class="review-body">
+      <span class="cat-label">Pet Care</span>
+      <h3>Best Pet Stain and Odor Removers 2026: 6 Tested on Real Accidents</h3>
+      <p>We deliberately stained carpets with pet urine, vomit, and mud, then tested 6 cleaners. Enzymatic cleaners won — but not all enzymes are equal.</p>
+      <div class="review-meta"><span class="author">PetGearNerds Team</span><span>11 min read</span></div>
+    </div>
+  </a>
+<a class="review-card" href="/review/best-dog-anxiety-vest-2026/">
+    <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&h=500&fit=crop&q=85');background-size:cover;background-position:center;"><span class="review-badge">Guide</span><span class="review-score">8.4</span></div>
+    <div class="review-body">
+      <span class="cat-label">Dog Health</span>
+      <h3>Best Dog Anxiety Vests 2026 — Do ThunderShirts Really Work?</h3>
+      <p>We tested anxiety vests on 10 dogs during thunderstorms, fireworks, and separation scenarios...</p>
       <div class="review-meta"><span class="author">PetGearNerds Team</span><span>12 min read</span></div>
     </div>
   </a>
-<a class="review-card" href="/review/best-pet-camera-2026/">
-    <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1587560699334-cc4ff634909a?w=800&h=500&fit=crop');background-size:cover;background-position:center;"><span class="review-badge">Comparison</span><span class="review-score">8.9</span></div>
+<a class="review-card" href="/review/best-flea-tick-prevention-dogs-2026/">
+    <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&h=500&fit=crop&q=80');background-size:cover;background-position:center;"><span class="review-badge">Essential</span><span class="review-score">9.3</span></div>
     <div class="review-body">
-      <span class="cat-label">Pet Tech</span>
-      <h3>Best Pet Camera 2026 — 5 Tested (One Has a Treat Launcher)</h3>
-      <p>We tested 5 pet cameras to find the best for checking on your furry friend while you're away...</p>
-      <div class="review-meta"><span class="author">PetGearNerds Team</span><span>10 min read</span></div>
+      <span class="cat-label">Dog Health</span>
+      <h3>Best Flea & Tick Prevention for Dogs 2026 — Vet Rankings</h3>
+      <p>Oral vs topical vs collar? We asked 15 vets to rank every major flea & tick product...</p>
+      <div class="review-meta"><span class="author">PetGearNerds Team</span><span>15 min read</span></div>
     </div>
   </a>
       </div>
@@ -128,5 +168,13 @@
     <p style="font-size:0.8rem;">&copy; 2026 PetGearNerds. All rights reserved.</p>
   </div>
 </footer>
+<script>
+// Reading progress bar
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const p = (window.scrollY / h) * 100;
+  document.getElementById('progressBar').style.width = Math.min(p, 100) + '%';
+});
+</script>
 </body>
 </html>

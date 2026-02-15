@@ -17,6 +17,7 @@
 
 </head>
 <body>
+<div class="progress-bar" id="progressBar"></div>
 <nav>
   <a href="/" class="nav-logo"><img src="/images/logo.png" alt="PetGearNerds"><span>PetGearNerds</span></a>
   <ul class="nav-links">
@@ -28,7 +29,19 @@
     <li><a href="/deals/" >Deals</a></li>
   </ul>
   <div class="nav-search"><span>🔍</span><input type="text" placeholder="Search reviews..."></div>
+  <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('active')">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-btn" onclick="this.parentElement.classList.remove('active')">✕</button>
+  <a href="/dogs/" onclick="this.parentElement.classList.remove('active')">Dogs</a>
+  <a href="/cats/" onclick="this.parentElement.classList.remove('active')">Cats</a>
+  <a href="/food/" onclick="this.parentElement.classList.remove('active')">Food</a>
+  <a href="/health/" onclick="this.parentElement.classList.remove('active')">Health</a>
+  <a href="/training/" onclick="this.parentElement.classList.remove('active')">Training</a>
+  <a href="/deals/" onclick="this.parentElement.classList.remove('active')">Deals</a>
+</div>
 
 <div class="container">
   <div class="breadcrumb"><a href="/">Home</a> › Training</div>
@@ -40,16 +53,7 @@
   <div class="content-grid">
     <div class="main-content">
       <div class="review-grid" style="grid-template-columns:1fr;">
-        <a class="review-card" href="/review/kong-classic-review/">
-    <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1535930749574-1399327ce78f?w=800&h=500&fit=crop');background-size:cover;background-position:center;"><span class="review-badge">Classic</span><span class="review-score">9.4</span></div>
-    <div class="review-body">
-      <span class="cat-label">Dog Toys</span>
-      <h3>KONG Classic — The Greatest Dog Toy Ever Made?</h3>
-      <p>After 20 years on the market, is the KONG Classic still king? We tested it against 12 competitors...</p>
-      <div class="review-meta"><span class="author">PetGearNerds Team</span><span>7 min read</span></div>
-    </div>
-  </a>
-<a class="review-card" href="/review/best-dog-harness-no-pull-2026/">
+        <a class="review-card" href="/review/best-dog-harness-no-pull-2026/">
     <div class="review-img" style="background:linear-gradient(135deg,#e0d4c0,#d4c8b4);display:flex;align-items:center;justify-content:center;font-size:3rem;"><span class="review-badge">Comparison</span><span class="review-score">9.3</span></div>
     <div class="review-body">
       <span class="cat-label">Dog Walking</span>
@@ -128,5 +132,13 @@
     <p style="font-size:0.8rem;">&copy; 2026 PetGearNerds. All rights reserved.</p>
   </div>
 </footer>
+<script>
+// Reading progress bar
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const p = (window.scrollY / h) * 100;
+  document.getElementById('progressBar').style.width = Math.min(p, 100) + '%';
+});
+</script>
 </body>
 </html>

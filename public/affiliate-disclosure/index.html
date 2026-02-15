@@ -17,6 +17,7 @@
 
 </head>
 <body>
+<div class="progress-bar" id="progressBar"></div>
 <nav>
   <a href="/" class="nav-logo"><img src="/images/logo.png" alt="PetGearNerds"><span>PetGearNerds</span></a>
   <ul class="nav-links">
@@ -28,7 +29,19 @@
     <li><a href="/deals/" >Deals</a></li>
   </ul>
   <div class="nav-search"><span>🔍</span><input type="text" placeholder="Search reviews..."></div>
+  <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('active')">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-btn" onclick="this.parentElement.classList.remove('active')">✕</button>
+  <a href="/dogs/" onclick="this.parentElement.classList.remove('active')">Dogs</a>
+  <a href="/cats/" onclick="this.parentElement.classList.remove('active')">Cats</a>
+  <a href="/food/" onclick="this.parentElement.classList.remove('active')">Food</a>
+  <a href="/health/" onclick="this.parentElement.classList.remove('active')">Health</a>
+  <a href="/training/" onclick="this.parentElement.classList.remove('active')">Training</a>
+  <a href="/deals/" onclick="this.parentElement.classList.remove('active')">Deals</a>
+</div>
 
 <div class="container">
   <div class="breadcrumb"><a href="/">Home</a> › Affiliate Disclosure</div>
@@ -118,5 +131,13 @@
     <p style="font-size:0.8rem;">&copy; 2026 PetGearNerds. All rights reserved.</p>
   </div>
 </footer>
+<script>
+// Reading progress bar
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const p = (window.scrollY / h) * 100;
+  document.getElementById('progressBar').style.width = Math.min(p, 100) + '%';
+});
+</script>
 </body>
 </html>

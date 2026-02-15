@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const nav = (active = '') => `<nav>
+const nav = (active = '') => `<div class="progress-bar" id="progressBar"></div>
+<nav>
   <a href="/" class="nav-logo"><img src="/images/logo.png" alt="PetGearNerds"><span>PetGearNerds</span></a>
   <ul class="nav-links">
     <li><a href="/dogs/" ${active==='dogs'?'class="active"':''}>Dogs</a></li>
@@ -12,7 +13,19 @@ const nav = (active = '') => `<nav>
     <li><a href="/deals/" ${active==='deals'?'class="active"':''}>Deals</a></li>
   </ul>
   <div class="nav-search"><span>🔍</span><input type="text" placeholder="Search reviews..."></div>
-</nav>`;
+  <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('active')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-btn" onclick="this.parentElement.classList.remove('active')">✕</button>
+  <a href="/dogs/" onclick="this.parentElement.classList.remove('active')">Dogs</a>
+  <a href="/cats/" onclick="this.parentElement.classList.remove('active')">Cats</a>
+  <a href="/food/" onclick="this.parentElement.classList.remove('active')">Food</a>
+  <a href="/health/" onclick="this.parentElement.classList.remove('active')">Health</a>
+  <a href="/training/" onclick="this.parentElement.classList.remove('active')">Training</a>
+  <a href="/deals/" onclick="this.parentElement.classList.remove('active')">Deals</a>
+</div>`;
 
 const newsletter = `<section class="newsletter">
   <h2>Get the Best Picks, Weekly</h2>
@@ -114,6 +127,14 @@ ${nav(active)}
 ${content}
 ${newsletter}
 ${footer}
+<script>
+// Reading progress bar
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const p = (window.scrollY / h) * 100;
+  document.getElementById('progressBar').style.width = Math.min(p, 100) + '%';
+});
+</script>
 </body>
 </html>`;
 }
@@ -134,6 +155,40 @@ function reviewCard(slug, img, badge, score, cat, title, excerpt, time) {
       <div class="review-meta"><span class="author">PetGearNerds Team</span><span>${time} min read</span></div>
     </div>
   </a>`;
+}
+
+const authorBox = `<div class="author-box">
+  <div class="author-avatar">PG</div>
+  <div class="author-info">
+    <h4>PetGearNerds Team</h4>
+    <p>Our editorial team tests and reviews hundreds of pet products each year. Every recommendation is based on real testing with real pets — never pay-to-play sponsorships.</p>
+  </div>
+</div>`;
+
+function relatedArticles(currentSlug, allReviews, images) {
+  const related = allReviews.filter(r => r.slug !== currentSlug).slice(0, 3);
+  return `<div class="related-articles">
+    <h3>You Might Also Like</h3>
+    <div class="related-grid">
+      ${related.map(r => {
+        const img = images[r.slug] || '';
+        const imgStyle = img ? `background-image:url('${img}')` : `background:linear-gradient(135deg,#e8d5c0,#d4c0a8)`;
+        return `<a class="related-card" href="/review/${r.slug}/">
+          <div class="related-card-img" style="${imgStyle}"></div>
+          <div class="related-card-body">
+            <span>${r.cat}</span>
+            <h4>${r.title.length > 60 ? r.title.substring(0, 57) + '...' : r.title}</h4>
+          </div>
+        </a>`;
+      }).join('\n')}
+    </div>
+  </div>`;
+}
+
+function articleHero(slug, images) {
+  const img = images[slug];
+  if (!img) return '';
+  return `<div class="article-hero" style="background-image:url('${img}')"></div>`;
 }
 
 function productBox(name, price, stars, desc) {
@@ -157,6 +212,7 @@ const extraArticles = require('./articles-extra.js');
 const night2Articles = require('./articles-night2.js');
 const batch2Articles = require('./articles-batch2.js');
 const batch3Articles = require('./articles-batch3.js');
+const batch4Articles = require('./articles-batch4.js');
 
 const reviews = [
   { slug: 'yeti-dog-bowl', img: 'linear-gradient(135deg,#f5e6d3,#e8d5c0)', badge: "Editor's Pick", score: '9.2', cat: 'Dog Bowls', title: 'YETI Boomer 8 Dog Bowl — Worth the Premium Price?', excerpt: 'We put this stainless steel bowl through 3 months of daily use. Here\'s what surprised us...', time: 5 },
@@ -170,6 +226,7 @@ const reviews = [
   ...Object.values(night2Articles).map(a => ({ slug: a.slug, img: a.img, badge: a.badge, score: a.score, cat: a.cat, title: a.title, excerpt: a.excerpt, time: a.time })),
   ...Object.values(batch2Articles).map(a => ({ slug: a.slug, img: a.img, badge: a.badge, score: a.score, cat: a.cat, title: a.title, excerpt: a.excerpt, time: a.time })),
   ...Object.values(batch3Articles).map(a => ({ slug: a.slug, img: a.img, badge: a.badge, score: a.score, cat: a.cat, title: a.title, excerpt: a.excerpt, time: a.time })),
+  ...Object.values(batch4Articles).map(a => ({ slug: a.slug, img: a.img, badge: a.badge, score: a.score, cat: a.cat, title: a.title, excerpt: a.excerpt, time: a.time })),
 ];
 
 // HOME PAGE
@@ -208,10 +265,22 @@ const homePage = page('Expert Pet Product Reviews', 'In-depth pet product review
     </div>
   </section>
   ${adLeaderboard}
-  <section style="padding:2rem 0 4rem;">
+  <section style="padding:2rem 0 1rem;">
+    <h2 style="font-family:'DM Serif Display',serif;font-size:2rem;color:var(--navy);margin-bottom:1.5rem;">Featured Review</h2>
+    <a href="/review/${reviews[0].slug}/" class="featured-article" style="text-decoration:none;">
+      <div class="featured-img" style="background-image:url('${petImages[reviews[0].slug] || ''}')"></div>
+      <div class="featured-body">
+        <span class="featured-badge">${reviews[0].badge}</span>
+        <h2>${reviews[0].title}</h2>
+        <p>${reviews[0].excerpt}</p>
+        <span class="read-more">Read Full Review →</span>
+      </div>
+    </a>
+  </section>
+  <section style="padding:1rem 0 4rem;">
     <h2 style="font-family:'DM Serif Display',serif;font-size:2rem;color:var(--navy);margin-bottom:2rem;">Latest Reviews</h2>
     <div class="review-grid">
-      ${reviews.slice(0,3).map(r => reviewCard(r.slug, r.img, r.badge, r.score, r.cat, r.title, r.excerpt, r.time)).join('\n')}
+      ${reviews.slice(1,7).map(r => reviewCard(r.slug, r.img, r.badge, r.score, r.cat, r.title, r.excerpt, r.time)).join('\n')}
     </div>
     <div style="text-align:center;margin-top:2rem;">
       <a href="/dogs/" class="hero-cta" style="display:inline-flex;">See All Reviews →</a>
@@ -223,16 +292,38 @@ const homePage = page('Expert Pet Product Reviews', 'In-depth pet product review
 fs.writeFileSync('public/index.html', homePage);
 
 // CATEGORY PAGES
+// Category filter: match articles by their cat field
+function matchCategory(articleCat, categoryDir) {
+  const cat = (articleCat || '').toLowerCase();
+  switch (categoryDir) {
+    case 'dogs':
+      return cat.includes('dog') || cat.includes('puppy');
+    case 'cats':
+      return cat.includes('cat') || cat.includes('feline') || cat.includes('kitten');
+    case 'food':
+      return cat.includes('food') || cat.includes('feeding') || cat.includes('nutrition');
+    case 'health':
+      return cat.includes('health') || cat.includes('dental') || cat.includes('insurance') || cat.includes('flea') || cat.includes('tick') || cat.includes('care');
+    case 'training':
+      return cat.includes('training') || cat.includes('walking') || cat.includes('harness') || cat.includes('leash');
+    case 'deals':
+      return true; // Deals page shows all articles
+    default:
+      return false;
+  }
+}
+
 const catPages = [
-  { dir: 'dogs', name: 'Dogs', emoji: '🐕', desc: 'Expert reviews of dog food, beds, toys, grooming tools, and everything else your good boy or girl needs.', reviews: [0,1,4,5,6] },
-  { dir: 'cats', name: 'Cats', emoji: '🐈', desc: 'In-depth reviews of cat food, litter, fountains, scratchers, and gear for your feline overlord.', reviews: [2,3,7] },
-  { dir: 'food', name: 'Pet Food', emoji: '🍖', desc: 'Comprehensive pet food reviews — kibble, wet food, raw diets, and specialty nutrition for dogs and cats.', reviews: [0,3,5] },
-  { dir: 'health', name: 'Health & Wellness', emoji: '💊', desc: 'Reviews of pet supplements, dental care, flea treatments, and wellness products backed by veterinary research.', reviews: [1,8] },
-  { dir: 'training', name: 'Training', emoji: '🎓', desc: 'Reviews of training tools, clickers, harnesses, and leashes. Plus training tips from certified professionals.', reviews: [4,6] },
-  { dir: 'deals', name: 'Deals & Sales', emoji: '🏷️', desc: 'The best pet product deals we\'ve found this week. Updated daily with Amazon sales, coupon codes, and clearance finds.', reviews: [0,1,2,3,4,5,6,7,8] },
+  { dir: 'dogs', name: 'Dogs', emoji: '🐕', desc: 'Expert reviews of dog food, beds, toys, grooming tools, and everything else your good boy or girl needs.' },
+  { dir: 'cats', name: 'Cats', emoji: '🐈', desc: 'In-depth reviews of cat food, litter, fountains, scratchers, and gear for your feline overlord.' },
+  { dir: 'food', name: 'Pet Food', emoji: '🍖', desc: 'Comprehensive pet food reviews — kibble, wet food, raw diets, and specialty nutrition for dogs and cats.' },
+  { dir: 'health', name: 'Health & Wellness', emoji: '💊', desc: 'Reviews of pet supplements, dental care, flea treatments, and wellness products backed by veterinary research.' },
+  { dir: 'training', name: 'Training', emoji: '🎓', desc: 'Reviews of training tools, clickers, harnesses, and leashes. Plus training tips from certified professionals.' },
+  { dir: 'deals', name: 'Deals & Sales', emoji: '🏷️', desc: 'The best pet product deals we\'ve found this week. Updated daily with Amazon sales, coupon codes, and clearance finds.' },
 ];
 
 catPages.forEach(cat => {
+  const filtered = reviews.filter(r => matchCategory(r.cat, cat.dir));
   const html = page(cat.name, cat.desc, `
 <div class="container">
   <div class="breadcrumb"><a href="/">Home</a> › ${cat.name}</div>
@@ -243,9 +334,9 @@ catPages.forEach(cat => {
   ${adLeaderboard}
   <div class="content-grid">
     <div class="main-content">
-      <div class="review-grid" style="grid-template-columns:1fr;">
-        ${cat.reviews.map(i => reviewCard(reviews[i].slug, reviews[i].img, reviews[i].badge, reviews[i].score, reviews[i].cat, reviews[i].title, reviews[i].excerpt, reviews[i].time)).join('\n')}
-      </div>
+      ${filtered.length > 0 ? `<div class="review-grid" style="grid-template-columns:1fr;">
+        ${filtered.map(r => reviewCard(r.slug, r.img, r.badge, r.score, r.cat, r.title, r.excerpt, r.time)).join('\n')}
+      </div>` : '<p style="color:var(--text-light);padding:2rem 0;">Reviews coming soon for this category.</p>'}
       ${adInline}
     </div>
     ${sidebar}
@@ -347,12 +438,9 @@ const articlePage = page('YETI Boomer 8 Dog Bowl — Worth the Premium Price?', 
         ${productBox('YETI Boomer 8 Dog Bowl', '$49.99', 5, '8-cup capacity, double-wall insulation, BPA-free stainless steel.')}
 
         ${adLeaderboard}
+        ${authorBox}
+        ${relatedArticles('yeti-dog-bowl', reviews, petImages)}
       </article>
-
-      <h3 style="font-family:'DM Serif Display',serif;color:var(--navy);margin:2rem 0 1rem;">Related Reviews</h3>
-      <div class="review-grid">
-        ${reviews.slice(1,3).map(r => reviewCard(r.slug, r.img, r.badge, r.score, r.cat, r.title, r.excerpt, r.time)).join('\n')}
-      </div>
     </div>
     ${sidebar}
   </div>
@@ -366,7 +454,7 @@ fs.writeFileSync('public/review/yeti-dog-bowl/index.html', yetiWithSchema);
 
 // Generate full article pages for remaining reviews
 const articles = require('./articles.js');
-const allArticles = { ...articles, ...extraArticles, ...night2Articles, ...batch2Articles, ...batch3Articles };
+const allArticles = { ...articles, ...extraArticles, ...night2Articles, ...batch2Articles, ...batch3Articles, ...batch4Articles };
 
 reviews.slice(1).forEach(r => {
   fs.mkdirSync(`public/review/${r.slug}`, { recursive: true });
@@ -381,13 +469,12 @@ reviews.slice(1).forEach(r => {
   ${adLeaderboard}
   <div class="content-grid">
     <div class="main-content">
+      ${articleHero(r.slug, petImages)}
       <article class="article">
         ${articleData.content(productBox, adInline, adLeaderboard)}
+        ${authorBox}
+        ${relatedArticles(r.slug, reviews, petImages)}
       </article>
-      <h3 style="font-family:'DM Serif Display',serif;color:var(--navy);margin:2rem 0 1rem;">Related Reviews</h3>
-      <div class="review-grid">
-        ${reviews.filter(x => x.slug !== r.slug).slice(0,2).map(x => reviewCard(x.slug, x.img, x.badge, x.score, x.cat, x.title, x.excerpt, x.time)).join('\n')}
-      </div>
     </div>
     ${sidebar}
   </div>

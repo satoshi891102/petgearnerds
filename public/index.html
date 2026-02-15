@@ -17,6 +17,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"PetGearNerds","url":"https://petgearnerds.vercel.app","description":"In-depth pet product reviews backed by research. Expert reviews of dog and cat products.","potentialAction":{"@type":"SearchAction","target":"https://petgearnerds.vercel.app/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 </head>
 <body>
+<div class="progress-bar" id="progressBar"></div>
 <nav>
   <a href="/" class="nav-logo"><img src="/images/logo.png" alt="PetGearNerds"><span>PetGearNerds</span></a>
   <ul class="nav-links">
@@ -28,7 +29,19 @@
     <li><a href="/deals/" >Deals</a></li>
   </ul>
   <div class="nav-search"><span>🔍</span><input type="text" placeholder="Search reviews..."></div>
+  <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('active')">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-btn" onclick="this.parentElement.classList.remove('active')">✕</button>
+  <a href="/dogs/" onclick="this.parentElement.classList.remove('active')">Dogs</a>
+  <a href="/cats/" onclick="this.parentElement.classList.remove('active')">Cats</a>
+  <a href="/food/" onclick="this.parentElement.classList.remove('active')">Food</a>
+  <a href="/health/" onclick="this.parentElement.classList.remove('active')">Health</a>
+  <a href="/training/" onclick="this.parentElement.classList.remove('active')">Training</a>
+  <a href="/deals/" onclick="this.parentElement.classList.remove('active')">Deals</a>
+</div>
 
 <section class="hero">
   <h1>Expert Pet Product Reviews<br>You Can <span class="accent">Actually Trust</span></h1>
@@ -57,19 +70,22 @@
     </div>
   </section>
   <div class="ad-slot ad-slot-leaderboard">📢 Ad Space — Google AdSense Leaderboard (728×90)</div>
-  <section style="padding:2rem 0 4rem;">
+  <section style="padding:2rem 0 1rem;">
+    <h2 style="font-family:'DM Serif Display',serif;font-size:2rem;color:var(--navy);margin-bottom:1.5rem;">Featured Review</h2>
+    <a href="/review/yeti-dog-bowl/" class="featured-article" style="text-decoration:none;">
+      <div class="featured-img" style="background-image:url('https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&h=500&fit=crop')"></div>
+      <div class="featured-body">
+        <span class="featured-badge">Editor's Pick</span>
+        <h2>YETI Boomer 8 Dog Bowl — Worth the Premium Price?</h2>
+        <p>We put this stainless steel bowl through 3 months of daily use. Here's what surprised us...</p>
+        <span class="read-more">Read Full Review →</span>
+      </div>
+    </a>
+  </section>
+  <section style="padding:1rem 0 4rem;">
     <h2 style="font-family:'DM Serif Display',serif;font-size:2rem;color:var(--navy);margin-bottom:2rem;">Latest Reviews</h2>
     <div class="review-grid">
-      <a class="review-card" href="/review/yeti-dog-bowl/">
-    <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&h=500&fit=crop');background-size:cover;background-position:center;"><span class="review-badge">Editor's Pick</span><span class="review-score">9.2</span></div>
-    <div class="review-body">
-      <span class="cat-label">Dog Bowls</span>
-      <h3>YETI Boomer 8 Dog Bowl — Worth the Premium Price?</h3>
-      <p>We put this stainless steel bowl through 3 months of daily use. Here's what surprised us...</p>
-      <div class="review-meta"><span class="author">PetGearNerds Team</span><span>5 min read</span></div>
-    </div>
-  </a>
-<a class="review-card" href="/review/best-orthopedic-dog-beds-2026/">
+      <a class="review-card" href="/review/best-orthopedic-dog-beds-2026/">
     <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=800&h=500&fit=crop');background-size:cover;background-position:center;"><span class="review-badge">Comparison</span><span class="review-score">9.5</span></div>
     <div class="review-body">
       <span class="cat-label">Dog Beds</span>
@@ -85,6 +101,42 @@
       <h3>Catit PIXI Smart Fountain — Smart, Quiet, Beautiful</h3>
       <p>Our two cats tested this LED fountain for 8 weeks. We measured everything...</p>
       <div class="review-meta"><span class="author">PetGearNerds Team</span><span>8 min read</span></div>
+    </div>
+  </a>
+<a class="review-card" href="/review/best-cat-litter-2026/">
+    <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?w=800&h=500&fit=crop');background-size:cover;background-position:center;"><span class="review-badge">Comparison</span><span class="review-score">9.0</span></div>
+    <div class="review-body">
+      <span class="cat-label">Cat Litter</span>
+      <h3>Best Cat Litter 2026 — 10 Brands Tested Head-to-Head</h3>
+      <p>Clumping, crystal, natural — we tested every type so your home doesn't smell like a litter box...</p>
+      <div class="review-meta"><span class="author">PetGearNerds Team</span><span>15 min read</span></div>
+    </div>
+  </a>
+<a class="review-card" href="/review/kong-classic-review/">
+    <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1535930749574-1399327ce78f?w=800&h=500&fit=crop');background-size:cover;background-position:center;"><span class="review-badge">Classic</span><span class="review-score">9.4</span></div>
+    <div class="review-body">
+      <span class="cat-label">Dog Toys</span>
+      <h3>KONG Classic — The Greatest Dog Toy Ever Made?</h3>
+      <p>After 20 years on the market, is the KONG Classic still king? We tested it against 12 competitors...</p>
+      <div class="review-meta"><span class="author">PetGearNerds Team</span><span>7 min read</span></div>
+    </div>
+  </a>
+<a class="review-card" href="/review/best-dog-food-golden-retrievers/">
+    <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1633722715463-d30f4f325e24?w=800&h=500&fit=crop');background-size:cover;background-position:center;"><span class="review-badge">Breed Guide</span><span class="review-score">9.1</span></div>
+    <div class="review-body">
+      <span class="cat-label">Dog Food</span>
+      <h3>Best Dog Food for Golden Retrievers 2026</h3>
+      <p>Golden Retrievers need specific nutrition for their coats, joints, and energy levels. Here are the top picks...</p>
+      <div class="review-meta"><span class="author">PetGearNerds Team</span><span>10 min read</span></div>
+    </div>
+  </a>
+<a class="review-card" href="/review/best-dog-harness-no-pull-2026/">
+    <div class="review-img" style="background:linear-gradient(135deg,#e0d4c0,#d4c8b4);display:flex;align-items:center;justify-content:center;font-size:3rem;"><span class="review-badge">Comparison</span><span class="review-score">9.3</span></div>
+    <div class="review-body">
+      <span class="cat-label">Dog Walking</span>
+      <h3>Best No-Pull Dog Harness 2026 — 8 Tested on Real Pullers</h3>
+      <p>We strapped 8 no-pull harnesses onto dogs who could tow a truck. Here's which ones actually work...</p>
+      <div class="review-meta"><span class="author">PetGearNerds Team</span><span>11 min read</span></div>
     </div>
   </a>
     </div>
@@ -138,5 +190,13 @@
     <p style="font-size:0.8rem;">&copy; 2026 PetGearNerds. All rights reserved.</p>
   </div>
 </footer>
+<script>
+// Reading progress bar
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const p = (window.scrollY / h) * 100;
+  document.getElementById('progressBar').style.width = Math.min(p, 100) + '%';
+});
+</script>
 </body>
 </html>

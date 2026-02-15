@@ -17,6 +17,7 @@
 
 </head>
 <body>
+<div class="progress-bar" id="progressBar"></div>
 <nav>
   <a href="/" class="nav-logo"><img src="/images/logo.png" alt="PetGearNerds"><span>PetGearNerds</span></a>
   <ul class="nav-links">
@@ -28,7 +29,19 @@
     <li><a href="/deals/" >Deals</a></li>
   </ul>
   <div class="nav-search"><span>🔍</span><input type="text" placeholder="Search reviews..."></div>
+  <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('active')">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-btn" onclick="this.parentElement.classList.remove('active')">✕</button>
+  <a href="/dogs/" onclick="this.parentElement.classList.remove('active')">Dogs</a>
+  <a href="/cats/" onclick="this.parentElement.classList.remove('active')">Cats</a>
+  <a href="/food/" onclick="this.parentElement.classList.remove('active')">Food</a>
+  <a href="/health/" onclick="this.parentElement.classList.remove('active')">Health</a>
+  <a href="/training/" onclick="this.parentElement.classList.remove('active')">Training</a>
+  <a href="/deals/" onclick="this.parentElement.classList.remove('active')">Deals</a>
+</div>
 
 <div class="container">
   <div class="breadcrumb"><a href="/">Home</a> › Pet Food</div>
@@ -40,31 +53,40 @@
   <div class="content-grid">
     <div class="main-content">
       <div class="review-grid" style="grid-template-columns:1fr;">
-        <a class="review-card" href="/review/yeti-dog-bowl/">
-    <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&h=500&fit=crop');background-size:cover;background-position:center;"><span class="review-badge">Editor's Pick</span><span class="review-score">9.2</span></div>
-    <div class="review-body">
-      <span class="cat-label">Dog Bowls</span>
-      <h3>YETI Boomer 8 Dog Bowl — Worth the Premium Price?</h3>
-      <p>We put this stainless steel bowl through 3 months of daily use. Here's what surprised us...</p>
-      <div class="review-meta"><span class="author">PetGearNerds Team</span><span>5 min read</span></div>
-    </div>
-  </a>
-<a class="review-card" href="/review/best-cat-litter-2026/">
-    <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?w=800&h=500&fit=crop');background-size:cover;background-position:center;"><span class="review-badge">Comparison</span><span class="review-score">9.0</span></div>
-    <div class="review-body">
-      <span class="cat-label">Cat Litter</span>
-      <h3>Best Cat Litter 2026 — 10 Brands Tested Head-to-Head</h3>
-      <p>Clumping, crystal, natural — we tested every type so your home doesn't smell like a litter box...</p>
-      <div class="review-meta"><span class="author">PetGearNerds Team</span><span>15 min read</span></div>
-    </div>
-  </a>
-<a class="review-card" href="/review/best-dog-food-golden-retrievers/">
+        <a class="review-card" href="/review/best-dog-food-golden-retrievers/">
     <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1633722715463-d30f4f325e24?w=800&h=500&fit=crop');background-size:cover;background-position:center;"><span class="review-badge">Breed Guide</span><span class="review-score">9.1</span></div>
     <div class="review-body">
       <span class="cat-label">Dog Food</span>
       <h3>Best Dog Food for Golden Retrievers 2026</h3>
       <p>Golden Retrievers need specific nutrition for their coats, joints, and energy levels. Here are the top picks...</p>
       <div class="review-meta"><span class="author">PetGearNerds Team</span><span>10 min read</span></div>
+    </div>
+  </a>
+<a class="review-card" href="/review/best-automatic-cat-feeder-2026/">
+    <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=800&h=500&fit=crop');background-size:cover;background-position:center;"><span class="review-badge">Comparison</span><span class="review-score">9.0</span></div>
+    <div class="review-body">
+      <span class="cat-label">Cat Feeding</span>
+      <h3>Best Automatic Cat Feeder 2026 — 6 Tested for Reliability</h3>
+      <p>We tested 6 automatic feeders for 3 months to find the one your cat can't hack and won't jam...</p>
+      <div class="review-meta"><span class="author">PetGearNerds Team</span><span>9 min read</span></div>
+    </div>
+  </a>
+<a class="review-card" href="/review/best-puppy-food-2026/">
+    <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1601758174114-e711c0cbaa69?w=800&h=500&fit=crop');background-size:cover;background-position:center;"><span class="review-badge">Comparison</span><span class="review-score">9.3</span></div>
+    <div class="review-body">
+      <span class="cat-label">Puppy Food</span>
+      <h3>Best Puppy Food 2026: 8 Brands Tested by Veterinarians</h3>
+      <p>Getting puppy nutrition wrong has lifelong consequences. We had 3 veterinarians evaluate 8 puppy foods across small, medium, and large breeds.</p>
+      <div class="review-meta"><span class="author">PetGearNerds Team</span><span>18 min read</span></div>
+    </div>
+  </a>
+<a class="review-card" href="/review/best-cat-food-sensitive-stomach-2026/">
+    <div class="review-img" style="background-image:url('https://images.unsplash.com/photo-1574158622682-e40e69881006?w=800&h=500&fit=crop&q=85');background-size:cover;background-position:center;"><span class="review-badge">Comparison</span><span class="review-score">9.1</span></div>
+    <div class="review-body">
+      <span class="cat-label">Cat Food</span>
+      <h3>Best Cat Food for Sensitive Stomachs 2026 — Vet Approved</h3>
+      <p>Chronic vomiting, diarrhea, or refusing food? We tested 9 sensitive stomach formulas with 12 cats...</p>
+      <div class="review-meta"><span class="author">PetGearNerds Team</span><span>14 min read</span></div>
     </div>
   </a>
       </div>
@@ -137,5 +159,13 @@
     <p style="font-size:0.8rem;">&copy; 2026 PetGearNerds. All rights reserved.</p>
   </div>
 </footer>
+<script>
+// Reading progress bar
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const p = (window.scrollY / h) * 100;
+  document.getElementById('progressBar').style.width = Math.min(p, 100) + '%';
+});
+</script>
 </body>
 </html>
