@@ -121,6 +121,9 @@ function page(title, desc, content, active='', schema=null) {
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="stylesheet" href="/style.css">
 ${schema ? schemaOrg(null, schema) : ''}
+<!-- Google Analytics — replace GA_MEASUREMENT_ID when ready -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','GA_MEASUREMENT_ID');</script>
 </head>
 <body>
 ${nav(active)}
