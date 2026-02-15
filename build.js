@@ -259,12 +259,12 @@ const homePage = page('Expert Pet Product Reviews', 'In-depth pet product review
     <h2 style="font-family:'DM Serif Display',serif;font-size:2rem;text-align:center;color:var(--navy);margin-bottom:0.5rem;">Browse by Category</h2>
     <p style="text-align:center;color:var(--text-light);margin-bottom:2.5rem;">Find the perfect gear for every aspect of pet parenting</p>
     <div class="cat-grid">
-      <a class="cat-card" href="/dogs/"><div class="cat-icon">🦴</div><h3>Dog Food</h3><p>Kibble, wet food, raw diets</p></a>
-      <a class="cat-card" href="/cats/"><div class="cat-icon">🐟</div><h3>Cat Food</h3><p>Dry, wet, grain-free</p></a>
-      <a class="cat-card" href="/dogs/"><div class="cat-icon">🛏️</div><h3>Beds & Crates</h3><p>Orthopedic, calming, travel</p></a>
-      <a class="cat-card" href="/dogs/"><div class="cat-icon">🎾</div><h3>Toys & Puzzles</h3><p>Interactive, chew, enrichment</p></a>
-      <a class="cat-card" href="/health/"><div class="cat-icon">💊</div><h3>Health & Wellness</h3><p>Supplements, dental, flea</p></a>
-      <a class="cat-card" href="/dogs/"><div class="cat-icon">✂️</div><h3>Grooming</h3><p>Brushes, shampoo, clippers</p></a>
+      <a class="cat-card" href="/dogs/"><div class="cat-icon">🐕</div><h3>Dogs</h3><p>Beds, toys, bowls, crates & more</p></a>
+      <a class="cat-card" href="/cats/"><div class="cat-icon">🐈</div><h3>Cats</h3><p>Litter, trees, fountains & toys</p></a>
+      <a class="cat-card" href="/food/"><div class="cat-icon">🍖</div><h3>Pet Food</h3><p>Kibble, wet food, raw diets</p></a>
+      <a class="cat-card" href="/health/"><div class="cat-icon">💊</div><h3>Health</h3><p>Dental, supplements, flea care</p></a>
+      <a class="cat-card" href="/training/"><div class="cat-icon">🎓</div><h3>Training</h3><p>Harnesses, leashes, walking gear</p></a>
+      <a class="cat-card" href="/deals/"><div class="cat-icon">🏷️</div><h3>Deals</h3><p>This week's best pet product sales</p></a>
     </div>
   </section>
   ${adLeaderboard}
