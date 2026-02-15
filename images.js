@@ -13,7 +13,7 @@ const articleImages = {
   'best-pet-camera-2026': 'https://images.unsplash.com/photo-1587560699334-cc4ff634909a?w=800&h=500&fit=crop',
   'best-dog-crate-2026': 'https://images.unsplash.com/photo-1583337130417-13571a247365?w=800&h=500&fit=crop',
   'best-cat-tree-2026': 'https://images.unsplash.com/photo-1615497001839-b0a0eac3274c?w=800&h=500&fit=crop',
-  'best-pet-insurance-2026': 'https://images.unsplash.com/photo-1450778869180-e77d3c79e4ba?w=800&h=500&fit=crop',
+  'best-pet-insurance-2026': 'https://images.unsplash.com/photo-1583337130417-13571a247365?w=800&h=500&fit=crop',
   'best-dog-toys-indestructible-2026': 'https://images.unsplash.com/photo-1591946614720-90a587da4a36?w=800&h=500&fit=crop',
   'best-puppy-food-2026': 'https://images.unsplash.com/photo-1601758174114-e711c0cbaa69?w=800&h=500&fit=crop',
   'best-dog-dental-chews-2026': 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&h=500&fit=crop&q=80',
